@@ -17,26 +17,25 @@ public class PersonnelsController {
 
     @RequestMapping(value = "/personnels", method = RequestMethod.GET)
     public String personnels(Model model) {
-        String query = "select * from personnels";
-        model.addAttribute("personnelList", databaseService.fetch(query, Personnel.rowMapper()));
+        model.addAttribute("personnelList", databaseService.fetch(Personnel.class));
         return "adminPanel";
     }
 
     @RequestMapping(value = "/addPersonnel", method = RequestMethod.POST)
     public String addPersonnel(Personnel personnel) {
-        databaseService.affectDev(personnel.insert());
+        databaseService.insert(personnel);
         return "redirect:/personnels";
     }
 
     @RequestMapping(value = "/updatePersonnel", method = RequestMethod.POST)
     public String updatePersonnel(Personnel personnel) {
-        databaseService.affectDev(personnel.update());
+        databaseService.update(personnel);
         return "redirect:/personnels";
     }
 
     @RequestMapping(value = "/deletePersonnel", method = RequestMethod.POST)
     public String deletePersonnel(Personnel personnel) {
-        databaseService.affectDev(personnel.delete());
+        databaseService.delete(personnel);
         return "redirect:/personnels";
     }
 }

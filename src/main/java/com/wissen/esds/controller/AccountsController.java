@@ -22,8 +22,7 @@ public class AccountsController {
 
     @RequestMapping(value = "/doLogin", method = RequestMethod.POST)
     public String doLogin(HttpSession session, Admin admin) {
-        String query = "select * from admins where username=? and password=?";
-        if (databaseService.checkLogin(query, Admin.rowMapper(), admin.getUserName(), admin.getPassword())) {
+        if (databaseService.checkLogin(admin)) {
             session.setAttribute("admin", admin.getUserName());
             return "redirect:/";
         } else {
@@ -40,8 +39,7 @@ public class AccountsController {
     @RequestMapping(value = "/changePassword", method = RequestMethod.POST)
     public String changePassword(HttpSession session, Admin admin) {
         admin.setUserName(session.getAttribute("admin").toString());
-        String query = "update admins set password=? where username=?";
-        databaseService.affect(query, admin.getPassword(), admin.getUserName());
+        databaseService.update(admin);
         return "redirect:/login";
     }
 }

@@ -1,24 +1,40 @@
 package com.wissen.esds.model;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import org.springframework.jdbc.core.PreparedStatementCreator;
-import org.springframework.jdbc.core.RowMapper;
+import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
-public class Order {
+@Entity
+@Table(name = "orders")
+public class Order implements Serializable {
 
-    private String id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private int id;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "visit_id")
     private Visit visit;
+    
+    @Column(name = "order_date")
     private String orderDate;
+    
+    @Column(name = "total_price")
     private String totalPrice;
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -44,59 +60,5 @@ public class Order {
 
     public void setTotalPrice(String totalPrice) {
         this.totalPrice = totalPrice;
-    }
-
-    public PreparedStatementCreator insert() {
-        return new PreparedStatementCreator() {
-            @Override
-            public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
-                String query = "";
-                PreparedStatement preparedStatement = connection.prepareStatement(query);
-
-                return preparedStatement;
-            }
-        };
-    }
-
-    public PreparedStatementCreator update() {
-        return new PreparedStatementCreator() {
-            @Override
-            public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
-                String query = "";
-                PreparedStatement preparedStatement = connection.prepareStatement(query);
-
-                return preparedStatement;
-            }
-        };
-    }
-
-    public PreparedStatementCreator delete() {
-        return new PreparedStatementCreator() {
-            @Override
-            public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
-                String query = "delete from orders where id = ?";
-                PreparedStatement preparedStatement = connection.prepareStatement(query);
-                preparedStatement.setString(1, getId());
-                return preparedStatement;
-            }
-        };
-    }
-
-    public static RowMapper<Order> rowMapper() {
-        return new RowMapper<Order>() {
-            @Override
-            public Order mapRow(ResultSet rs, int i) throws SQLException {
-                Order order = new Order();
-                order.setId(rs.getString(1));
-                order.setVisit(new Visit());
-                order.getVisit().setPersonnel(new Personnel());
-                order.getVisit().getPersonnel().setName(rs.getString(2));
-                order.getVisit().setCustomer(new Customer());
-                order.getVisit().getCustomer().setName(rs.getString(3));
-                order.setOrderDate(rs.getString(4));
-                order.setTotalPrice(rs.getString(5));
-                return order;
-            }
-        };
     }
 }

@@ -1,26 +1,47 @@
 package com.wissen.esds.model;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import org.springframework.jdbc.core.PreparedStatementCreator;
-import org.springframework.jdbc.core.RowMapper;
+import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
-public class Visit{
+@Entity
+@Table(name = "visits")
+public class Visit implements Serializable {
 
-    private String id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private int id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "personnel_id")
     private Personnel personnel;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "customer_id")
     private Customer customer;
+    
+    @Column(name = "create_date")
     private String createDate;
+    
+    @Column(name = "visit_Date")
     private String visitDate;
+    
+    @Column(name = "check_location")
     private String checkLocation;
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -62,64 +83,5 @@ public class Visit{
 
     public void setCheckLocation(String checkLocation) {
         this.checkLocation = checkLocation;
-    }
-
-    public PreparedStatementCreator insert() {
-        return new PreparedStatementCreator() {
-            @Override
-            public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
-                String query = "insert into visits values (0, ?, ?, now(), ?, 'Hayir')";
-                PreparedStatement preparedStatement = connection.prepareStatement(query);
-                preparedStatement.setString(1, getPersonnel().getId());
-                preparedStatement.setString(2, getCustomer().getId());
-                preparedStatement.setString(3, getVisitDate());
-                return preparedStatement;
-            }
-        };
-    }
-
-    public PreparedStatementCreator update() {
-        return new PreparedStatementCreator() {
-            @Override
-            public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
-                String query = "update visits set personnel_id=?, customer_id=?, visit_date=? where id=?";
-                PreparedStatement preparedStatement = connection.prepareStatement(query);
-                preparedStatement.setString(1, getPersonnel().getId());
-                preparedStatement.setString(2, getCustomer().getId());
-                preparedStatement.setString(3, getVisitDate());
-                preparedStatement.setString(4, getId());
-                return preparedStatement;
-            }
-        };
-    }
-
-    public PreparedStatementCreator delete() {
-        return new PreparedStatementCreator() {
-            @Override
-            public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
-                String query = "delete from visits where id=?";
-                PreparedStatement preparedStatement = connection.prepareStatement(query);
-                preparedStatement.setString(1, getId());
-                return preparedStatement;
-            }
-        };
-    }
-
-    public static RowMapper<Visit> rowMapper() {
-        return new RowMapper<Visit>() {
-            @Override
-            public Visit mapRow(ResultSet rs, int i) throws SQLException {
-                Visit visit = new Visit();
-                visit.setId(rs.getString(1));
-                visit.setPersonnel(new Personnel());
-                visit.getPersonnel().setName(rs.getString(2));
-                visit.setCustomer(new Customer());
-                visit.getCustomer().setName(rs.getString(3));
-                visit.setCreateDate(rs.getString(4));
-                visit.setVisitDate(rs.getString(5));
-                visit.setCheckLocation(rs.getString(6));
-                return visit;
-            }
-        };
     }
 }

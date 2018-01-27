@@ -13,39 +13,39 @@ import com.wissen.esds.service.DatabaseService;
 @Controller
 @RequestMapping(value = "/", method = RequestMethod.GET)
 public class VisitsController {
-
+    
     @Autowired
     DatabaseService databaseService;
-
+    
     @RequestMapping(value = "/visits", method = RequestMethod.GET)
     public String visits(Model model) {
         String query
                 = "select visits.id,  personnels.`name`, customers.`name`, create_date, visit_date, check_location from visits "
                 + "inner join personnels on personnel_id = personnels.id "
                 + "inner join customers on customer_id = customers.id";
-        model.addAttribute("visitList", databaseService.fetch(query, Visit.rowMapper()));
+        model.addAttribute("visitList", databaseService.fetch(Visit.class));
         query = "select * from personnels";
-        model.addAttribute("personnelListForVisit", databaseService.fetch(query, Personnel.rowMapper()));
+        model.addAttribute("personnelListForVisit", databaseService.fetch(Personnel.class));
         query = "select * from customers";
-        model.addAttribute("customerListForVisit", databaseService.fetch(query, Customer.rowMapper()));
+        model.addAttribute("customerListForVisit", databaseService.fetch(Customer.class));
         return "adminPanel";
     }
-
+    
     @RequestMapping(value = "/addVisit", method = RequestMethod.POST)
     public String addVisit(Model model, Visit visit) {
-        databaseService.affectDev(visit.insert());
+        databaseService.insert(visit);
         return "redirect:/visits";
     }
-
+    
     @RequestMapping(value = "/updateVisit", method = RequestMethod.POST)
     public String updateVisit(Model model, Visit visit) {
-        databaseService.affectDev(visit.update());
+        databaseService.update(visit);
         return "redirect:/visits";
     }
-
+    
     @RequestMapping(value = "/deleteVisit", method = RequestMethod.POST)
     public String deleteVisit(Model model, Visit visit) {
-        databaseService.affectDev(visit.delete());
+        databaseService.delete(visit);
         return "redirect:/visits";
     }
 }

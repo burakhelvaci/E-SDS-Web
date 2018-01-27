@@ -1,14 +1,15 @@
 package com.wissen.esds.dao;
+;
 
-import java.util.List;
-import org.springframework.jdbc.core.PreparedStatementCreator;
-import org.springframework.jdbc.core.RowMapper;
+import org.hibernate.query.Query;
 
 public interface DatabaseDao {
 
-    <T> List<T> fetch(String query, RowMapper<T> rowMapper, Object... params);
+    <T> Query<T> fetch(Class<T> element);
 
-    void affect(String query, Object... params);
-    
-    void affectDev(PreparedStatementCreator preparedStatementCreator);
+    <T> void insert(T object);
+
+    <T> void update(T object);
+
+    <T> void delete(T object);
 }

@@ -1,26 +1,42 @@
 package com.wissen.esds.model;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import org.springframework.jdbc.core.PreparedStatementCreator;
-import org.springframework.jdbc.core.RowMapper;
+import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-public class Personnel{
+@Entity
+@Table(name = "personnels")
+public class Personnel implements Serializable{
 
-    private String id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private int id;
+    
+    @Column(name = "name")
     private String name;
+    
+    @Column(name = "username")
     private String userName;
+    
+    @Column(name = "email")
     private String email;
+    
+    @Column(name = "phone_number")
     private String phoneNumber;
+    
+    @Column(name = "password")
     private String password;
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -62,66 +78,5 @@ public class Personnel{
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public PreparedStatementCreator insert() {
-        return new PreparedStatementCreator() {
-            @Override
-            public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
-                String query = "insert into personnels values (0, ?, ?, ?, ?, ?)";
-                PreparedStatement preparedStatement = connection.prepareStatement(query);
-                preparedStatement.setString(1, getName());
-                preparedStatement.setString(2, getUserName());
-                preparedStatement.setString(3, getEmail());
-                preparedStatement.setString(4, getPhoneNumber());
-                preparedStatement.setString(5, getPassword());
-                return preparedStatement;
-            }
-        };
-    }
-
-    public PreparedStatementCreator update() {
-        return new PreparedStatementCreator() {
-            @Override
-            public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
-                String query = "update personnels set name=?, username=?, email=?, phone_number=?, password=? where id=?";
-                PreparedStatement preparedStatement = connection.prepareStatement(query);
-                preparedStatement.setString(1, getName());
-                preparedStatement.setString(2, getUserName());
-                preparedStatement.setString(3, getEmail());
-                preparedStatement.setString(4, getPhoneNumber());
-                preparedStatement.setString(5, getPassword());
-                preparedStatement.setString(6, getId());
-                return preparedStatement;
-            }
-        };
-    }
-
-    public PreparedStatementCreator delete() {
-        return new PreparedStatementCreator() {
-            @Override
-            public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
-                String query = "delete from personnels where id = ?";
-                PreparedStatement preparedStatement = connection.prepareStatement(query);
-                preparedStatement.setString(1, getId());
-                return preparedStatement;
-            }
-        };
-    }
-
-    public static RowMapper<Personnel> rowMapper() {
-        return new RowMapper<Personnel>() {
-            @Override
-            public Personnel mapRow(ResultSet rs, int i) throws SQLException {
-                Personnel personnel = new Personnel();
-                personnel.setId(rs.getString(1));
-                personnel.setName(rs.getString(2));
-                personnel.setUserName(rs.getString(3));
-                personnel.setEmail(rs.getString(4));
-                personnel.setPhoneNumber(rs.getString(5));
-                personnel.setPhoneNumber(rs.getString(6));
-                return personnel;
-            }
-        };
     }
 }

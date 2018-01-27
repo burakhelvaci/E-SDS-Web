@@ -17,26 +17,25 @@ public class CustomersController {
 
     @RequestMapping(value = "/customers", method = RequestMethod.GET)
     public String customers(Model model) {
-        String query = "select * from customers";
-        model.addAttribute("customerList", databaseService.fetch(query, Customer.rowMapper()));
+        model.addAttribute("customerList", databaseService.fetch(Customer.class));
         return "adminPanel";
     }
 
     @RequestMapping(value = "/addCustomer", method = RequestMethod.POST)
     public String addCustomer(Model model, Customer customer) {
-        databaseService.affectDev(customer.insert());
+        databaseService.insert(customer);
         return "redirect:/customers";
     }
 
     @RequestMapping(value = "/updateCustomer", method = RequestMethod.POST)
     public String updateCustomer(Model model, Customer customer) {
-        databaseService.affectDev(customer.update());
+        databaseService.update(customer);
         return "redirect:/customers";
     }
 
     @RequestMapping(value = "/deleteCustomer", method = RequestMethod.POST)
     public String deleteCustomer(Model model, Customer customer) {
-        databaseService.affectDev(customer.delete());
+        databaseService.delete(customer);
         return "redirect:/customers";
-    }   
+    }
 }

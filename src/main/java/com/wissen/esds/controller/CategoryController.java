@@ -18,19 +18,19 @@ public class CategoryController {
 
     @RequestMapping(value = "/addCategory", method = RequestMethod.POST)
     public String addCategory(Model model, Category category) {
-        databaseService.affectDev(category.insert());
+        databaseService.insert(category);
         return "redirect:/products";
     }
 
     @RequestMapping(value = "/updateCategory", method = RequestMethod.POST)
     public String updateCategory(Model model, Category category) {
-        databaseService.affectDev(category.update());
+        databaseService.update(category);
         return "redirect:/products";
     }
 
     @RequestMapping(value = "/deleteCategory", method = RequestMethod.POST)
     public String deleteCategory(Model model, Category category) {
-        databaseService.affectDev(category.delete());
+        databaseService.delete(category);
         return "redirect:/products";
     }
 }

@@ -1,22 +1,39 @@
 package com.wissen.esds.model;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import org.springframework.jdbc.core.RowMapper;
+import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-public class Admin {
+@Entity
+@Table(name = "admins")
+public class Admin implements Serializable {
 
-    private String id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private int id;
+    
+    @Column(name = "name")
     private String name;
+    
+    @Column(name = "username")
     private String userName;
+    
+    @Column(name = "email")
     private String email;
+    
+    @Column(name = "password")
     private String password;
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -50,20 +67,5 @@ public class Admin {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public static RowMapper<Admin> rowMapper() {
-        return new RowMapper<Admin>() {
-            @Override
-            public Admin mapRow(ResultSet rs, int i) throws SQLException {
-                Admin admin = new Admin();
-                admin.setId(rs.getString(1));
-                admin.setName(rs.getString(2));
-                admin.setUserName(rs.getString(3));
-                admin.setEmail(rs.getString(4));
-                admin.setPassword(rs.getString(5));
-                return admin;
-            }
-        };
     }
 }

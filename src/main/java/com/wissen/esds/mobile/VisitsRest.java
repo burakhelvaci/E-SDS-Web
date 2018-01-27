@@ -29,7 +29,6 @@ public class VisitsRest {
 
     @RequestMapping(value = "/logVisitForMobile", method = RequestMethod.POST)
     public void logVisits(Visit visit) {
-        String query = "update visits set check_location='Evet' where id=?";
-        databaseService.affect(query, visit.getId());
+        databaseService.update(visit);
     }
 }

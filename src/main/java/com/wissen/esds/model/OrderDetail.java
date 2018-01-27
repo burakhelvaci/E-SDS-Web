@@ -1,24 +1,41 @@
 package com.wissen.esds.model;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import org.springframework.jdbc.core.PreparedStatementCreator;
-import org.springframework.jdbc.core.RowMapper;
+import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
-public class OrderDetail {
+@Entity
+@Table(name = "orderdetail")
+public class OrderDetail implements Serializable {
 
-    private String id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private int id;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_id")
     private Order order;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id")
     private Product product;
+    
+    @Column(name = "product_count")
     private String productCount;
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -45,55 +62,4 @@ public class OrderDetail {
     public void setProductCount(String productCount) {
         this.productCount = productCount;
     }
-
-    public PreparedStatementCreator insert() {
-        return new PreparedStatementCreator() {
-            @Override
-            public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
-                String query = "";
-                PreparedStatement preparedStatement = connection.prepareStatement(query);
-                return preparedStatement;
-            }
-        };
-    }
-
-    public PreparedStatementCreator update() {
-        return new PreparedStatementCreator() {
-            @Override
-            public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
-                String query = "";
-                PreparedStatement preparedStatement = connection.prepareStatement(query);
-                return preparedStatement;
-            }
-        };
-    }
-
-    public PreparedStatementCreator delete() {
-        return new PreparedStatementCreator() {
-            @Override
-            public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
-                String query = "delete from orderdetail where id=?";
-                PreparedStatement preparedStatement = connection.prepareStatement(query);
-                preparedStatement.setString(1, getId());
-                return preparedStatement;
-            }
-        };
-    }
-
-    public static RowMapper<OrderDetail> rowMapper() {
-        return new RowMapper<OrderDetail>() {
-            @Override
-            public OrderDetail mapRow(ResultSet rs, int i) throws SQLException {
-                OrderDetail orderDetail = new OrderDetail();
-                orderDetail.setProduct(new Product());
-                orderDetail.getProduct().setName(rs.getString(1));
-                orderDetail.getProduct().setPrice(rs.getString(2));
-                orderDetail.setProductCount(rs.getString(3));
-                orderDetail.setOrder(new Order());
-                orderDetail.getOrder().setOrderDate(rs.getString(4));
-                return orderDetail;
-            }
-        };
-    }
-
 }

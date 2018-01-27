@@ -17,18 +17,13 @@ public class OrdersController {
 
     @RequestMapping(value = "/orders", method = RequestMethod.POST)
     public String orders(Model model) {
-        String query
-                = "SELECT orders.id, personnels.`name`, customers.`name`, orders.order_date, orders.total_price from orders "
-                + "inner join visits on orders.visit_id=visits.id "
-                + "inner join personnels on visits.personnel_id=personnels.id "
-                + "inner join customers on visits.customer_id=customers.id";
-        model.addAttribute("orderList", databaseService.fetch(query, Order.rowMapper()));
+        model.addAttribute("orderList", databaseService.fetch(Order.class));
         return "adminPanel";
     }
 
     @RequestMapping(value = "/deleteOrder", method = RequestMethod.POST)
     public String deleteOrder(Model model, Order order) {
-        databaseService.affectDev(order.delete());
+        databaseService.delete(order);
         return "redirect:/orders";
     }
 }

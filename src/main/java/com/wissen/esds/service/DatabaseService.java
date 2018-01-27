@@ -1,22 +1,21 @@
 package com.wissen.esds.service;
 
-import com.wissen.esds.model.Chart;
-import com.wissen.esds.model.OrderDetail;
+import com.wissen.esds.model.Order;
 import java.util.List;
-import org.springframework.jdbc.core.PreparedStatementCreator;
-import org.springframework.jdbc.core.RowMapper;
 
 public interface DatabaseService {
 
-    <T> List<T> fetch(String query, RowMapper<T> rowMapper, Object... params);
+    <T> List<T> fetch(Class<T> classType);
 
-    String fetchOrderDetailData(String query, RowMapper<OrderDetail> rowMapper, Object... params);
+    String fetchOrderDetailData(Order order);
 
-    String fetchGoogleChartData(String query, RowMapper<Chart> rowMapper);
+    String fetchGoogleChartData();
+    
+    <T> void insert(T object);
+    
+    <T> void update(T object);
+    
+    <T> void delete(T object);
 
-    void affect(String query, Object... params);
-
-    void affectDev(PreparedStatementCreator preparedStatementCreator);
-
-    <T> boolean checkLogin(String query, RowMapper<T> rowMapper, Object... params);
+    <T> boolean checkLogin(T object);
 }

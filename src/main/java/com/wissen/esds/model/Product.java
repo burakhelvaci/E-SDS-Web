@@ -1,25 +1,43 @@
 package com.wissen.esds.model;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import org.springframework.jdbc.core.PreparedStatementCreator;
-import org.springframework.jdbc.core.RowMapper;
+import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
-public class Product{
+@Entity
+@Table(name = "products")
+public class Product implements Serializable{
 
-    private String id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private int id;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id")
     private Category category;
+    
+    @Column(name = "name")
     private String name;
+    
+    @Column(name = "price")
     private String price;
+    
+    @Column(name = "img_link")
     private String imgLink;
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -53,64 +71,5 @@ public class Product{
 
     public void setImgLink(String imgLink) {
         this.imgLink = imgLink;
-    }
-
-    public PreparedStatementCreator insert() {
-        return new PreparedStatementCreator() {
-            @Override
-            public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
-                String query = "insert into products values (0, ?, ?, ?, ?)";
-                PreparedStatement preparedStatement = connection.prepareStatement(query);
-                preparedStatement.setString(1, getCategory().getId());
-                preparedStatement.setString(2, getName());
-                preparedStatement.setString(3, getPrice());
-                preparedStatement.setString(4, getImgLink());
-                return preparedStatement;
-            }
-        };
-    }
-
-    public PreparedStatementCreator update() {
-        return new PreparedStatementCreator() {
-            @Override
-            public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
-                String query = "update products set category_id=?, name=?, price=?, img_link=? where id=?";
-                PreparedStatement preparedStatement = connection.prepareStatement(query);
-                preparedStatement.setString(1, getCategory().getId());
-                preparedStatement.setString(2, getName());
-                preparedStatement.setString(3, getPrice());
-                preparedStatement.setString(4, getImgLink());
-                preparedStatement.setString(5, getId());
-                return preparedStatement;
-            }
-        };
-    }
-
-    public PreparedStatementCreator delete() {
-        return new PreparedStatementCreator() {
-            @Override
-            public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
-                String query = "delete from products where id=?";
-                PreparedStatement preparedStatement = connection.prepareStatement(query);
-                preparedStatement.setString(1, getId());
-                return preparedStatement;
-            }
-        };
-    }
-
-    public static RowMapper<Product> rowMapper() {
-        return new RowMapper<Product>() {
-            @Override
-            public Product mapRow(ResultSet rs, int i) throws SQLException {
-                Product product = new Product();
-                product.setId(rs.getString(1));
-                product.setCategory(new Category());
-                product.getCategory().setId(rs.getString(2));
-                product.setName(rs.getString(3));
-                product.setPrice(rs.getString(4));
-                product.setImgLink(rs.getString(5));
-                return product;
-            }
-        };
     }
 }

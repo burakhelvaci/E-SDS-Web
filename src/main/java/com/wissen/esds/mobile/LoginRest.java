@@ -16,6 +16,6 @@ public class LoginRest {
     @RequestMapping(value = "/doLoginWithMobile", method = RequestMethod.POST)
     public boolean doLoginWithMobile(Personnel personnel) {
         String query = "select count(*) from personnels where username=? and password=?";
-        return databaseService.checkLogin(query, Personnel.rowMapper(), personnel.getUserName(), personnel.getPassword());
+        return databaseService.checkLogin(personnel);
     }
 }

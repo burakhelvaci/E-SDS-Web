@@ -18,37 +18,33 @@ public class ProductsController {
 
     @RequestMapping(value = "/products", method = RequestMethod.GET)
     public String product(Model model) {
-        String query = "select * from categories";
-        model.addAttribute("categoryList", databaseService.fetch(query, Category.rowMapper()));
-        query = "select * from products";
-        model.addAttribute("productList", databaseService.fetch(query, Product.rowMapper()));
+        model.addAttribute("categoryList", databaseService.fetch(Category.class));
+        model.addAttribute("productList", databaseService.fetch(Product.class));
         return "products";
     }
 
     @RequestMapping(value = "/products/{name}/{id}", method = RequestMethod.GET)
     public String product(Model model, Category category) {
-        String query = "select * from categories";
-        model.addAttribute("categoryList", databaseService.fetch(query, Category.rowMapper()));
-        query = "select * from products where category_id=?";
-        model.addAttribute("productList", databaseService.fetch(query, Product.rowMapper(), category.getId()));
+        model.addAttribute("categoryList", databaseService.fetch(Category.class));
+        model.addAttribute("productList", databaseService.fetch(Product.class));
         return "products";
     }
 
     @RequestMapping(value = "/addProduct", method = RequestMethod.POST)
     public String addProduct(Model model, Product product) {
-        databaseService.affectDev(product.insert());
+        databaseService.insert(product);
         return "redirect:/products";
     }
 
     @RequestMapping(value = "/updateProduct", method = RequestMethod.POST)
     public String updateProduct(Model model, Product product) {
-        databaseService.affectDev(product.update());
+        databaseService.update(product);
         return "redirect:/products";
     }
 
     @RequestMapping(value = "/deleteProduct", method = RequestMethod.POST)
     public String deleteProduct(Model model, Product product) {
-        databaseService.affectDev(product.delete());
+        databaseService.delete(product);
         return "redirect:/products";
     }
 }

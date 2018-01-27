@@ -24,6 +24,6 @@ public class ChartRest {
                 + "group by personnels.`name` "
                 + "order by count(*) desc limit 10";
 
-        return databaseService.fetchGoogleChartData(query, Chart.rowMapper());
+        return databaseService.fetchGoogleChartData();
     }
 }
