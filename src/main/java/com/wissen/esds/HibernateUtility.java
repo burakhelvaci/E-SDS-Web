@@ -16,6 +16,10 @@ import org.hibernate.service.ServiceRegistry;
 public class HibernateUtility {
 
     private static SessionFactory sessionFactory;
+    
+    private HibernateUtility(){
+    
+    }
 
     private static SessionFactory buildSessionFactory() {
         Configuration configuration = new Configuration();

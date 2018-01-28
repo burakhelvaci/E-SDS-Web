@@ -1,21 +1,20 @@
 package com.wissen.esds.service;
 
-import com.wissen.esds.model.Order;
 import java.util.List;
+import javax.persistence.criteria.CriteriaQuery;
+import org.hibernate.Session;
 
 public interface DatabaseService {
 
-    <T> List<T> fetch(Class<T> classType);
+    <T> List<T> fetchAsObject(Session session, CriteriaQuery<T> criteriaQuery);
 
-    String fetchOrderDetailData(Order order);
+    <T> String fetchAsJson(Session session, CriteriaQuery<T> criteriaQuery, T object);
 
-    String fetchGoogleChartData();
-    
+    <T> String fetchGoogleChartData(Session session, CriteriaQuery<T> criteriaQuery);
+
     <T> void insert(T object);
-    
-    <T> void update(T object);
-    
-    <T> void delete(T object);
 
-    <T> boolean checkLogin(T object);
+    <T> void update(T object);
+
+    <T> void delete(T object);
 }

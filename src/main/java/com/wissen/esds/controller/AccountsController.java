@@ -1,5 +1,6 @@
 package com.wissen.esds.controller;
 
+import com.wissen.esds.HibernateUtility;
 import com.wissen.esds.model.Admin;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import com.wissen.esds.service.DatabaseService;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+import org.hibernate.Session;
 
 @Controller
 @RequestMapping(value = "/", method = RequestMethod.GET)
@@ -21,9 +26,14 @@ public class AccountsController {
     }
 
     @RequestMapping(value = "/doLogin", method = RequestMethod.POST)
-    public String doLogin(HttpSession session, Admin admin) {
-        if (databaseService.checkLogin(admin)) {
-            session.setAttribute("admin", admin.getUserName());
+    public String doLogin(HttpSession httpSession, Admin admin) {
+        Session session = HibernateUtility.getSessionFactory().openSession();
+        CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+        CriteriaQuery criteriaQuery = criteriaBuilder.createQuery(Admin.class);
+        Root root = criteriaQuery.from(Admin.class);
+        criteriaQuery.select(root);
+        if (databaseService.fetchAsObject(session, criteriaQuery).size() > 0) {
+            httpSession.setAttribute("admin", admin.getUserName());
             return "redirect:/";
         } else {
             return "redirect:/login";

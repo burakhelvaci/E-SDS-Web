@@ -1,5 +1,6 @@
 package com.wissen.esds.controller;
 
+import com.wissen.esds.HibernateUtility;
 import com.wissen.esds.model.Category;
 import com.wissen.esds.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import com.wissen.esds.service.DatabaseService;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+import org.hibernate.Session;
 
 @Controller
 @RequestMapping(value = "/", method = RequestMethod.GET)
@@ -18,15 +23,31 @@ public class ProductsController {
 
     @RequestMapping(value = "/products", method = RequestMethod.GET)
     public String product(Model model) {
-        model.addAttribute("categoryList", databaseService.fetch(Category.class));
-        model.addAttribute("productList", databaseService.fetch(Product.class));
+        Session session = HibernateUtility.getSessionFactory().openSession();
+        CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+        CriteriaQuery criteriaQuery = criteriaBuilder.createQuery(Category.class);
+        Root root = criteriaQuery.from(Category.class);
+        criteriaQuery.select(root);
+        model.addAttribute("categoryList", databaseService.fetchAsObject(session, criteriaQuery));
+        criteriaQuery = criteriaBuilder.createQuery(Product.class);
+        root = criteriaQuery.from(Product.class);
+        criteriaQuery.select(root);
+        model.addAttribute("productList", databaseService.fetchAsObject(session, criteriaQuery));
         return "products";
     }
 
     @RequestMapping(value = "/products/{name}/{id}", method = RequestMethod.GET)
     public String product(Model model, Category category) {
-        model.addAttribute("categoryList", databaseService.fetch(Category.class));
-        model.addAttribute("productList", databaseService.fetch(Product.class));
+        Session session = HibernateUtility.getSessionFactory().openSession();
+        CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+        CriteriaQuery criteriaQuery = criteriaBuilder.createQuery(Category.class);
+        Root root = criteriaQuery.from(Category.class);
+        criteriaQuery.select(root);
+        model.addAttribute("categoryList", databaseService.fetchAsObject(session, criteriaQuery));
+        criteriaQuery = criteriaBuilder.createQuery(Product.class);
+        root = criteriaQuery.from(Product.class);
+        criteriaQuery.select(root).where(criteriaBuilder.equal(root.get("category").get("id"), category.getId()));
+        model.addAttribute("productList", databaseService.fetchAsObject(session, criteriaQuery));
         return "products";
     }
 

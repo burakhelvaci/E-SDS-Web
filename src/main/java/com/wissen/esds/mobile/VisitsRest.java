@@ -1,5 +1,8 @@
 package com.wissen.esds.mobile;
 
+import com.wissen.esds.HibernateUtility;
+import com.wissen.esds.model.OrderDetail;
+import com.wissen.esds.model.Personnel;
 import com.wissen.esds.model.Visit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -7,6 +10,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.wissen.esds.service.DatabaseService;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+import org.hibernate.Session;
 
 @RestController
 public class VisitsRest {
@@ -15,16 +22,13 @@ public class VisitsRest {
     DatabaseService databaseService;
 
     @RequestMapping(value = "/getVisitsForMobile", method = RequestMethod.POST)
-    public String getVisits(@RequestParam("username") String username) {
-    /*    String query = "select customers.`name`, customers.phone_number, customers.location, "
-                + "customers.address, visits.visit_date, visits.id from visits "
-                + "inner join personnels on visits.personnel_id=personnels.id "
-                + "inner join customers on visits.customer_id=customers.id "
-                + "where personnels.username=? "
-                + "ORDER BY visits.visit_date";
-        Object[] params = {username};
-        String visitsJSON = databaseService.fetchJson(query, params);*/
-        return null;
+    public String getVisits(Personnel personnel) {
+        Session session = HibernateUtility.getSessionFactory().openSession();
+        CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+        CriteriaQuery criteriaQuery = criteriaBuilder.createQuery(Visit.class);
+        Root root = criteriaQuery.from(Visit.class);
+        criteriaQuery.select(root).where(criteriaBuilder.equal(root.get("personnel").get("userName"), personnel.getUserName())).orderBy(criteriaBuilder.asc(root.get("visitDate")));
+        return databaseService.fetchAsJson(session, criteriaQuery, new Visit());
     }
 
     @RequestMapping(value = "/logVisitForMobile", method = RequestMethod.POST)

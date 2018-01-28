@@ -98,15 +98,11 @@
                                 '                                <p style="margin: 0; font-size: 14px;">Ürün</p>\n' +
                                 '                                <p style="margin: 0; font-size: 14px;">Fiyat</p>\n' +
                                 '                                <p style="margin: 0; font-size: 14px;">Adet</p>\n' +
-                                '                                <p style="margin: 0; font-size: 14px;">Sipariş Tarihi </p>\n' +
-                                '                                <hr/>' +
                                 '                            </div>\n' +
                                 '                            <div style="border-right: 1px solid rgba(0,0,0,.2);margin-bottom: 25px;" class="col-md-9">\n' +
-                                '                                <p style="margin: 0; font-size: 14px;color: cadetblue;"> ' + jsonArr[i][0] + '</p>\n' +
-                                '                                <p style="margin: 0; font-size: 14px;color: cadetblue;"> ' + jsonArr[i][1] + ' TL</p>\n' +
-                                '                                <p style="margin: 0; font-size: 14px;color: cadetblue;"> ' + jsonArr[i][2] + '</p>\n' +
-                                '                                <p style="margin: 0; font-size: 14px;color: cadetblue;"> ' + jsonArr[i][3] + '</p>\n' +
-                                '                                <hr/>' +
+                                '                                <p style="margin: 0; font-size: 14px;color: cadetblue;"> ' + jsonArr[i].product.name + '</p>\n' +
+                                '                                <p style="margin: 0; font-size: 14px;color: cadetblue;"> ' + jsonArr[i].product.price + ' TL</p>\n' +
+                                '                                <p style="margin: 0; font-size: 14px;color: cadetblue;"> ' + jsonArr[i].productCount + '</p>\n' +
                                 '                            </div>\n';
                     }
                     $("#ordrDet").html(htmlJsCode);
