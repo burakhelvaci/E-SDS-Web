@@ -1,13 +1,11 @@
 package com.wissen.esds.mobile;
 
 import com.wissen.esds.HibernateUtility;
-import com.wissen.esds.model.OrderDetail;
 import com.wissen.esds.model.Personnel;
 import com.wissen.esds.model.Visit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.wissen.esds.service.DatabaseService;
 import javax.persistence.criteria.CriteriaBuilder;

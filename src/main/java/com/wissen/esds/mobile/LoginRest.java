@@ -24,7 +24,7 @@ public class LoginRest {
         CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
         CriteriaQuery criteriaQuery = criteriaBuilder.createQuery(Personnel.class);
         Root root = criteriaQuery.from(Personnel.class);
-        criteriaQuery.select(root);
+        criteriaQuery.select(root).where(criteriaBuilder.and(criteriaBuilder.equal(root.get("userName"), personnel.getUserName()), criteriaBuilder.equal(root.get("password"), personnel.getPassword())));
         return databaseService.fetchAsObject(session, criteriaQuery).size() > 0;
     }
 }

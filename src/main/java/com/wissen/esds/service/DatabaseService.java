@@ -5,7 +5,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import org.hibernate.Session;
 
 public interface DatabaseService {
-
+    
     <T> List<T> fetchAsObject(Session session, CriteriaQuery<T> criteriaQuery);
 
     <T> String fetchAsJson(Session session, CriteriaQuery<T> criteriaQuery, T object);

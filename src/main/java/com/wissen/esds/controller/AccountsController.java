@@ -31,7 +31,7 @@ public class AccountsController {
         CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
         CriteriaQuery criteriaQuery = criteriaBuilder.createQuery(Admin.class);
         Root root = criteriaQuery.from(Admin.class);
-        criteriaQuery.select(root);
+        criteriaQuery.select(root).where(criteriaBuilder.and(criteriaBuilder.equal(root.get("userName"), admin.getUserName()), criteriaBuilder.equal(root.get("password"), admin.getPassword())));
         if (databaseService.fetchAsObject(session, criteriaQuery).size() > 0) {
             httpSession.setAttribute("admin", admin.getUserName());
             return "redirect:/";
