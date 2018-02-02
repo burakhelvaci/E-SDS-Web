@@ -88,7 +88,7 @@
 <script>
     $(document).ready(function () {
         $(".ajx").click(function () {
-            $.post("orderDetail", {id: this.id}, function (data, status) {
+            $.post("/api/orderdetail/getorderdetails", {id: this.id}, function (data, status) {
                 if (status) {
                     var jsonArr = JSON.parse(data);
                     var htmlJsCode = '';

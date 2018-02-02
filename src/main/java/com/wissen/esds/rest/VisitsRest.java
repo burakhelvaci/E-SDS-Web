@@ -1,4 +1,4 @@
-package com.wissen.esds.mobile;
+package com.wissen.esds.rest;
 
 import com.wissen.esds.HibernateUtility;
 import com.wissen.esds.model.Personnel;
@@ -19,7 +19,7 @@ public class VisitsRest {
     @Autowired
     DatabaseService databaseService;
 
-    @RequestMapping(value = "/getVisitsForMobile", method = RequestMethod.POST)
+    @RequestMapping(value = "/api/visit/getvisits", method = RequestMethod.POST)
     public String getVisits(Personnel personnel) {
         Session session = HibernateUtility.getSessionFactory().openSession();
         CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
@@ -29,7 +29,7 @@ public class VisitsRest {
         return databaseService.fetchAsJson(session, criteriaQuery, new Visit());
     }
 
-    @RequestMapping(value = "/logVisitForMobile", method = RequestMethod.POST)
+    @RequestMapping(value = "/api/visit/logvisit", method = RequestMethod.POST)
     public void logVisits(Visit visit) {
         databaseService.update(visit);
     }

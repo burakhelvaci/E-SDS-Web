@@ -32,7 +32,7 @@ public class PersonnelsController {
     }
 
     @RequestMapping(value = "/addPersonnel", method = RequestMethod.POST)
-    public String addPersonnel(Personnel personnel) {
+    public String insertPersonnel(Personnel personnel) {
         databaseService.insert(personnel);
         return "redirect:/personnels";
     }

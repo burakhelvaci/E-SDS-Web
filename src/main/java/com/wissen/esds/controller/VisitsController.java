@@ -42,7 +42,7 @@ public class VisitsController {
     }
 
     @RequestMapping(value = "/addVisit", method = RequestMethod.POST)
-    public String addVisit(Model model, Visit visit) {
+    public String insertVisit(Model model, Visit visit) {
         databaseService.insert(visit);
         return "redirect:/visits";
     }

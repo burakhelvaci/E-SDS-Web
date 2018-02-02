@@ -1,6 +1,7 @@
 package com.wissen.esds.model;
 
 import java.io.Serializable;
+import java.sql.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -25,10 +26,10 @@ public class Order implements Serializable {
     private Visit visit;
     
     @Column(name = "order_date")
-    private String orderDate;
+    private Date orderDate;
     
     @Column(name = "total_price")
-    private String totalPrice;
+    private double totalPrice;
 
     public int getId() {
         return id;
@@ -46,19 +47,19 @@ public class Order implements Serializable {
         this.visit = visit;
     }
 
-    public String getOrderDate() {
+    public Date getOrderDate() {
         return orderDate;
     }
 
-    public void setOrderDate(String orderDate) {
+    public void setOrderDate(Date orderDate) {
         this.orderDate = orderDate;
     }
 
-    public String getTotalPrice() {
+    public double getTotalPrice() {
         return totalPrice;
     }
 
-    public void setTotalPrice(String totalPrice) {
+    public void setTotalPrice(double totalPrice) {
         this.totalPrice = totalPrice;
     }
 }

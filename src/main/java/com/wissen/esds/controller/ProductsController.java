@@ -52,7 +52,7 @@ public class ProductsController {
     }
 
     @RequestMapping(value = "/addProduct", method = RequestMethod.POST)
-    public String addProduct(Model model, Product product) {
+    public String insertProduct(Model model, Product product) {
         databaseService.insert(product);
         return "redirect:/products";
     }

@@ -14,13 +14,13 @@ public class ChartRest {
     DatabaseService databaseService;
 
     @ResponseBody
-    @RequestMapping(value = "/chart", method = RequestMethod.POST)
+    @RequestMapping(value = "/chart", method = RequestMethod.GET)
     public String getChart() {
         String query
                 = "select personnels.`name`, count(*) from orders "
                 + "inner join visits on orders.visit_id=visits.id "
                 + "inner join personnels on visits.personnel_id=personnels.id "
-                + "group by personnels.`name` "
+                + "group by personnels.`name` " 
                 + "order by count(*) desc limit 10";
 
         return "";

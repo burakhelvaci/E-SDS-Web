@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix = "fn" uri = "http://java.sun.com/jsp/jstl/functions" %>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
@@ -28,20 +29,21 @@
             <jsp:include page="customers.jsp"/>
             <jsp:include page="visits.jsp"/>
             <jsp:include page="orders.jsp"/>
-
-            <c:if test="${not empty personnelList}">
+           
+            <c:if test="${requestScope['javax.servlet.forward.request_uri'] == '/personnels'}">
                 <button class="btn btn-info pull-right" style="cursor: pointer;" data-toggle="modal" data-target="#modalAddPersonnel"><i class="fa fa-plus" aria-hidden="true"></i></button>
                 </c:if>
 
-            <c:if test="${not empty customerList}">
+            <c:if test="${requestScope['javax.servlet.forward.request_uri'] == '/customers'}">
                 <button class="btn btn-info pull-right" style="cursor: pointer;" data-toggle="modal" data-target="#modalAddCustomer"><i class="fa fa-plus" aria-hidden="true"></i></button>
                 </c:if>
 
-            <c:if test="${not empty visitList}">
+                
+                <c:if test="${requestScope['javax.servlet.forward.request_uri'] == '/visits'}">
                 <button class="btn btn-info pull-right" style="cursor: pointer;" data-toggle="modal" data-target="#modalAddVisit"><i class="fa fa-plus" aria-hidden="true"></i></button>
                 </c:if>
 
-            <c:if test="${(empty personnelList) and (empty customerList) and (empty visitList) and (empty orderList)}">
+            <c:if test="${requestScope['javax.servlet.forward.request_uri'] == '/'}">
                 <div id="donutchart" style="margin: auto; width: 900px; height: 500px;"></div>
             </c:if>
         </div>

@@ -32,7 +32,7 @@ public class CustomersController {
     }
 
     @RequestMapping(value = "/addCustomer", method = RequestMethod.POST)
-    public String addCustomer(Model model, Customer customer) {
+    public String insertCustomer(Model model, Customer customer) {
         databaseService.insert(customer);
         return "redirect:/customers";
     }

@@ -9,7 +9,6 @@
                 <th>Id</th>
                 <th>Personel</th>
                 <th>Müşteri</th>
-                <th>Oluşturma Tarihi</th>
                 <th>Ziyaret Tarihi</th>
                 <th>Ziyaret Edildi mi?</th>
                 <th>İşlem</th>
@@ -21,7 +20,6 @@
                     <td style="vertical-align: middle;">${item.getId()}</td>
                     <td style="vertical-align: middle;">${item.getPersonnel().getName()}</td>
                     <td style="vertical-align: middle;">${item.getCustomer().getName()}</td>
-                    <td style="vertical-align: middle;">${item.getCreateDate()}</td>
                     <td style="vertical-align: middle;">${item.getVisitDate()}</td>
                     <td style="vertical-align: middle;">${item.getCheckLocation()}</td>
                     <td class="btn-group" style="vertical-align: middle;">

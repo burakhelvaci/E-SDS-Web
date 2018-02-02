@@ -1,4 +1,4 @@
-package com.wissen.esds.mobile;
+package com.wissen.esds.rest;
 
 import com.wissen.esds.HibernateUtility;
 import com.wissen.esds.model.Personnel;
@@ -18,7 +18,7 @@ public class LoginRest {
     @Autowired
     DatabaseService databaseService;
 
-    @RequestMapping(value = "/doLoginWithMobile", method = RequestMethod.POST)
+    @RequestMapping(value = "/api/login/dologin", method = RequestMethod.POST)
     public boolean doLoginWithMobile(Personnel personnel) {
         Session session = HibernateUtility.getSessionFactory().openSession();
         CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();

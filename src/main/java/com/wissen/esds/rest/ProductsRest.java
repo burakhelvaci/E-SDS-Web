@@ -1,4 +1,4 @@
-package com.wissen.esds.mobile;
+package com.wissen.esds.rest;
 
 import com.wissen.esds.HibernateUtility;
 import com.wissen.esds.model.Category;
@@ -19,7 +19,7 @@ public class ProductsRest {
     @Autowired
     DatabaseService databaseService;
 
-    @RequestMapping(value = "/getProductsForMobile", method = RequestMethod.POST)
+    @RequestMapping(value = "/api/product/getproducts", method = RequestMethod.POST)
     public String getProducts() {
         Session session = HibernateUtility.getSessionFactory().openSession();
         CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
@@ -29,7 +29,7 @@ public class ProductsRest {
         return databaseService.fetchAsJson(session, criteriaQuery, new Product());
     }
 
-    @RequestMapping(value = "/getProductsByCategoryForMobile", method = RequestMethod.POST)
+    @RequestMapping(value = "/api/product/getproductsbycategory", method = RequestMethod.POST)
     public String getProducts(Category category) {
         Session session = HibernateUtility.getSessionFactory().openSession();
         CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();

@@ -1,4 +1,4 @@
-package com.wissen.esds.mobile;
+package com.wissen.esds.rest;
 
 import com.wissen.esds.HibernateUtility;
 import com.wissen.esds.model.Category;
@@ -18,7 +18,7 @@ public class CategoriesRest {
     @Autowired
     DatabaseService databaseService;
 
-    @RequestMapping(value = "/getCategoriesForMobile", method = RequestMethod.POST)
+    @RequestMapping(value = "/api/category/getcategories", method = RequestMethod.POST)
     public String getCategories() {
         Session session = HibernateUtility.getSessionFactory().openSession();
         CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();

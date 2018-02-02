@@ -28,7 +28,7 @@ public class Product implements Serializable{
     private String name;
     
     @Column(name = "price")
-    private String price;
+    private double price;
     
     @Column(name = "img_link")
     private String imgLink;
@@ -57,11 +57,11 @@ public class Product implements Serializable{
         this.name = name;
     }
 
-    public String getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 

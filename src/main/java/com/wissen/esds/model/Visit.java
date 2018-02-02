@@ -1,6 +1,10 @@
 package com.wissen.esds.model;
 
 import java.io.Serializable;
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -27,15 +31,12 @@ public class Visit implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id")
     private Customer customer;
-    
-    @Column(name = "create_date")
-    private String createDate;
-    
+
     @Column(name = "visit_Date")
-    private String visitDate;
-    
+    private Date visitDate;
+
     @Column(name = "check_location")
-    private String checkLocation;
+    private String checkLocation = "Hayir";
 
     public int getId() {
         return id;
@@ -61,19 +62,11 @@ public class Visit implements Serializable {
         this.customer = customer;
     }
 
-    public String getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(String createDate) {
-        this.createDate = createDate;
-    }
-
-    public String getVisitDate() {
+    public Date getVisitDate() {
         return visitDate;
     }
 
-    public void setVisitDate(String visitDate) {
+    public void setVisitDate(Date visitDate) {
         this.visitDate = visitDate;
     }
 
@@ -84,4 +77,5 @@ public class Visit implements Serializable {
     public void setCheckLocation(String checkLocation) {
         this.checkLocation = checkLocation;
     }
+
 }

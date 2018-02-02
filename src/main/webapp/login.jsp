@@ -252,7 +252,7 @@
                 <div class="input-inform">
                     <input type="text" name="userName" id="name" placeholder="Kullanıcı Adı..." />
                     <input type="password" name="password" id="password" placeholder="Parola..." />
-                    <input type="button" value="FORGOT PASSWORD?" id="forgot-pas"/>
+                    <input type="button" value="PAROLAMI UNUTTUM" id="forgot-pas"/>
                 </div>
                 <div class="enter">
                     <label for="enter"></label>

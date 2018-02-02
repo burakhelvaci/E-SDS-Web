@@ -17,7 +17,7 @@ public class CategoryController {
     DatabaseService databaseService;
 
     @RequestMapping(value = "/addCategory", method = RequestMethod.POST)
-    public String addCategory(Model model, Category category) {
+    public String insertCategory(Model model, Category category) {
         databaseService.insert(category);
         return "redirect:/products";
     }
