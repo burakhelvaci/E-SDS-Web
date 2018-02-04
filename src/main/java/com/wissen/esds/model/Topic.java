@@ -1,6 +1,7 @@
 package com.wissen.esds.model;
 
-public class Topic {
+
+public class Topic{
     private String topic;
     private String message;
 

@@ -10,18 +10,19 @@
         <div class="collapse navbar-collapse" id="collapsibleNavbar">
             <ul class="navbar-nav ml-auto">
 
-                <li class="nav-item"><a style="margin-right: 15px;" class="nav-link" href="<s:url value="/personnels"></s:url>">Personeller</a></li>
-            <li class="nav-item"><a style="margin-right: 15px;" class="nav-link" href="<s:url value="/customers"></s:url>">Müşteriler</a></li>
-            <li class="nav-item"><a style="margin-right: 15px;" class="nav-link" href="<s:url value="/products"></s:url>">Ürünler</a></li>  
-            <li class="nav-item"><a style="margin-right: 15px;" class="nav-link" href="<s:url value="/visits"></s:url>">Ziyaretler</a></li>  
-            <li class="nav-item"><a style="margin-right: 15px;" class="nav-link" href="<s:url value="/orders"></s:url>">Siparişler</a></li>   
+            <li class="nav-item"><a style="margin-right: 15px;" class="nav-link" href="<s:url value="/messenger"></s:url>">Mesajlar</a></li>
+            <li class="nav-item"><a style="margin-right: 15px;" class="nav-link" href="<s:url value="/personnel"></s:url>">Personeller</a></li>
+            <li class="nav-item"><a style="margin-right: 15px;" class="nav-link" href="<s:url value="/customer"></s:url>">Müşteriler</a></li>
+            <li class="nav-item"><a style="margin-right: 15px;" class="nav-link" href="<s:url value="/product"></s:url>">Ürünler</a></li>  
+            <li class="nav-item"><a style="margin-right: 15px;" class="nav-link" href="<s:url value="/visit"></s:url>">Ziyaretler</a></li>  
+            <li class="nav-item"><a style="margin-right: 15px;" class="nav-link" href="<s:url value="/order"></s:url>">Siparişler</a></li>   
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
                     <i class="fa fa-user-circle" aria-hidden="true"></i>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right">
                     <a class="dropdown-item" data-toggle="modal" style="cursor: pointer;" data-target="#modalPassword"><i class="fa fa-lock" aria-hidden="true"></i> Parola Değiştir</a>
-                    <a class="dropdown-item" href="doLogout"><i class="fa fa-sign-out" aria-hidden="true"></i> Çıkış Yap</a>
+                    <a class="dropdown-item" href="/account/logout"><i class="fa fa-sign-out" aria-hidden="true"></i> Çıkış Yap</a>
                 </div>
             </li>
         </ul>
@@ -31,7 +32,7 @@
 <div class="modal fade" id="modalPassword">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
-            <form class="form-group" action="changePassword" method="post">
+            <form class="form-group" action="/account/changepassword" method="post">
                 <div class="modal-header">
                     <h4 class="modal-title">Parola Değiştir</h4>
                     <button type="button" class="close" style="cursor: pointer;" data-dismiss="modal">&times;</button>

@@ -10,8 +10,6 @@ public interface DatabaseService {
 
     <T> String fetchAsJson(Session session, CriteriaQuery<T> criteriaQuery, T object);
 
-    <T> String fetchGoogleChartData(Session session, CriteriaQuery<T> criteriaQuery);
-
     <T> void insert(T object);
 
     <T> void update(T object);

@@ -245,7 +245,7 @@
             <div class="content-triangle"></div>
             <div class="enter-triangle-one"></div>
             <div class="enter-triangle-two"></div>
-            <form action="<s:url value="/doLogin"></s:url>" method="post" id="form">
+            <form action="<s:url value="/account/login"></s:url>" method="post" id="form">
                 <div class="title">
                     <label>GİRİŞ YAPIN</label>
                 </div>

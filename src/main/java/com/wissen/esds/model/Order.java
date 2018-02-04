@@ -21,7 +21,7 @@ public class Order implements Serializable {
     @Column(name = "id")
     private int id;
     
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "visit_id")
     private Visit visit;
     

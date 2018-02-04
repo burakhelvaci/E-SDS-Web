@@ -62,7 +62,7 @@
 <div class="modal fade" id="modalDeleteOrder">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form class="form-group" action="<s:url value="/deleteOrder"></s:url>" method="post">
+            <form class="form-group" action="<s:url value="/order/deleteorder"></s:url>" method="post">
                 <div class="modal-header">
                     <h4 class="modal-title">Kayıt Sil</h4>
                     <button type="button" class="close" style="cursor: pointer;" data-dismiss="modal">&times;</button>

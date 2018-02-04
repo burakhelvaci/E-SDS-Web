@@ -3,11 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="s" %>
 
-<%
-    if (session.getAttribute("admin") == null) {
-        response.sendRedirect("login");
-    }
-%>
+<c:if test="${empty sessionScope.admin}"><c:redirect url = "/account"/></c:if>
 <!DOCTYPE html>
 <html>
     <head>
@@ -94,7 +90,7 @@
                             <c:forEach var="item" items="${categoryList}">
                                 <div class="row categoryitem">
                                     <div class="col-md-8">
-                                        <a class="item" href="<s:url value="/products/${item.getLinkName()}/${item.getId()}"></s:url>" style="text-decoration: none;">
+                                        <a class="item" href="<s:url value="/product/${item.getLinkName()}/${item.getId()}"></s:url>" style="text-decoration: none;">
                                             <i class="fa fa-folder-open" aria-hidden="true"></i> ${item.getName()}
                                         </a>
                                     </div>
@@ -142,7 +138,7 @@
         <div class="modal fade" id="modalAddProduct">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <form class="form-group" action="<s:url value="/addProduct"></s:url>" method="post">
+                    <form class="form-group" action="<s:url value="/product/addproduct"></s:url>" method="post">
                             <div class="modal-header">
                                 <h4 class="modal-title">Ürün Ekle</h4>
                                 <button type="button" class="close" style="cursor: pointer;" data-dismiss="modal">&times;</button>
@@ -185,7 +181,7 @@
         <div class="modal fade" id="modalUpdateProduct">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <form class="form-group" action="<s:url value="/updateProduct"></s:url>" method="post">
+                    <form class="form-group" action="<s:url value="/product/updateproduct"></s:url>" method="post">
                             <div class="modal-header">
                                 <h4 class="modal-title">Ürün Ekle</h4>
                                 <button type="button" class="close" style="cursor: pointer;" data-dismiss="modal">&times;</button>
@@ -231,7 +227,7 @@
         <div class="modal fade" id="modalDeleteProduct">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <form class="form-group" action="<s:url value="/deleteProduct"></s:url>" method="post">
+                    <form class="form-group" action="<s:url value="/product/deleteproduct"></s:url>" method="post">
                             <div class="modal-header">
                                 <h4 class="modal-title">Kayıt Sil</h4>
                                 <button type="button" class="close" style="cursor: pointer;" data-dismiss="modal">&times;</button>
@@ -258,7 +254,7 @@
             <div class="modal fade" id="modalAddCategory">
                 <div class="modal-dialog">
                     <div class="modal-content">
-                        <form class="form-group" action="<s:url value="/addCategory"></s:url>" method="post">
+                        <form class="form-group" action="<s:url value="/category/addcategory"></s:url>" method="post">
                             <div class="modal-header">
                                 <h4 class="modal-title">Kategori Ekle</h4>
                                 <button type="button" class="close" style="cursor: pointer;" data-dismiss="modal">&times;</button>
@@ -288,7 +284,7 @@
             <div class="modal fade" id="modalUpdateCategory">
                 <div class="modal-dialog">
                     <div class="modal-content">
-                        <form class="form-group" action="<s:url value="/updateCategory"></s:url>" method="post">
+                        <form class="form-group" action="<s:url value="/category/updatecategory"></s:url>" method="post">
                             <div class="modal-header">
                                 <h4 class="modal-title">Kategori Bilgisi Güncelle</h4>
                                 <button type="button" class="close" style="cursor: pointer;" data-dismiss="modal">&times;</button>
@@ -320,7 +316,7 @@
             <div class="modal fade" id="modalDeleteCategory">
                 <div class="modal-dialog">
                     <div class="modal-content">
-                        <form class="form-group" action="<s:url value="/deleteCategory"></s:url>" method="post">
+                        <form class="form-group" action="<s:url value="/category/deletecategory"></s:url>" method="post">
                         <div class="modal-header">
                             <h4 class="modal-title">Kayıt Sil</h4>
                             <button type="button" class="close" style="cursor: pointer;" data-dismiss="modal">&times;</button>

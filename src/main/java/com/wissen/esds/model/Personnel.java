@@ -10,25 +10,25 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "personnels")
-public class Personnel implements Serializable{
+public class Personnel implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
-    
+
     @Column(name = "name")
     private String name;
-    
+
     @Column(name = "username")
     private String userName;
-    
+
     @Column(name = "email")
     private String email;
-    
+
     @Column(name = "phone_number")
     private String phoneNumber;
-    
+
     @Column(name = "password")
     private String password;
 

@@ -36,7 +36,7 @@
 <div class="modal fade" id="modalAddVisit">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form class="form-group" action="<s:url value="/addVisit"></s:url>" method="post">
+            <form class="form-group" action="<s:url value="/visit/addvisit"></s:url>" method="post">
                     <div class="modal-header">
                         <h4 class="modal-title">Kayıt Ekle</h4>
                         <button type="button" class="close" style="cursor: pointer;" data-dismiss="modal">&times;</button>
@@ -83,7 +83,7 @@
 <div class="modal fade" id="modalUpdateVisit">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form class="form-group" action="<s:url value="/updateVisit"></s:url>" method="post">
+            <form class="form-group" action="<s:url value="/visit/updatevisit"></s:url>" method="post">
                     <div class="modal-header">
                         <h4 class="modal-title">Kayıt Güncelle</h4>
                         <button type="button" class="close" style="cursor: pointer;" data-dismiss="modal">&times;</button>
@@ -132,7 +132,7 @@
 <div class="modal fade" id="modalDeleteVisit">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form class="form-group" action="<s:url value="/deleteVisit"></s:url>" method="post">
+            <form class="form-group" action="<s:url value="/visit/deletevisit"></s:url>" method="post">
                 <div class="modal-header">
                     <h4 class="modal-title">Kayıt Sil</h4>
                     <button type="button" class="close" style="cursor: pointer;" data-dismiss="modal">&times;</button>

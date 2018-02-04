@@ -36,7 +36,7 @@
 <div class="modal fade" id="modalAddCustomer">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <form class="form-group" action="<s:url value="/addCustomer"></s:url>" method="post">
+            <form class="form-group" action="<s:url value="/customer/addcustomer"></s:url>" method="post">
                     <div class="modal-header">
                         <h4 class="modal-title">Kayıt Ekle</h4>
                         <button type="button" class="close" style="cursor: pointer;" data-dismiss="modal">&times;</button>
@@ -77,7 +77,7 @@
     <div class="modal fade" id="modalUpdateCustomer">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <form class="form-group" action="<s:url value="/updateCustomer"></s:url>" method="post">
+                <form class="form-group" action="<s:url value="/customer/updatecustomer"></s:url>" method="post">
                     <div class="modal-header">
                         <h4 class="modal-title">Kayıt Güncelle</h4>
                         <button type="button" class="close" style="cursor: pointer;" data-dismiss="modal">&times;</button>
@@ -120,7 +120,7 @@
     <div class="modal fade" id="modalDeleteCustomer">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form class="form-group" action="<s:url value="/deleteCustomer"></s:url>" method="post">
+                <form class="form-group" action="<s:url value="/customer/deletecustomer"></s:url>" method="post">
                 <div class="modal-header">
                     <h4 class="modal-title">Kayıt Sil</h4>
                     <button type="button" class="close" style="cursor: pointer;" data-dismiss="modal">&times;</button>

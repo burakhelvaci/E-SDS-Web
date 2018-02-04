@@ -2,14 +2,14 @@ package com.wissen.esds.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.wissen.esds.dao.DatabaseDao;
-import com.wissen.esds.service.DatabaseService;
 import java.lang.reflect.Method;
 import java.util.List;
 import javax.persistence.criteria.CriteriaQuery;
 import org.hibernate.Session;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import com.wissen.esds.dao.DatabaseDao;
+import com.wissen.esds.service.DatabaseService;
 
 @Service
 public class DatabaseServiceImpl implements DatabaseService {
@@ -19,12 +19,12 @@ public class DatabaseServiceImpl implements DatabaseService {
 
     @Override
     public <T> List<T> fetchAsObject(Session session, CriteriaQuery<T> criteriaQuery) {
-        return databaseDao.fetch(session, criteriaQuery).getResultList();
+        return databaseDao.select(session, criteriaQuery).getResultList();
     }
 
     @Override
     public <T> String fetchAsJson(Session session, CriteriaQuery<T> criteriaQuery, T object) {
-        List<T> list = (List<T>) databaseDao.fetch(session, criteriaQuery).getResultList();
+        List<T> list = (List<T>) databaseDao.select(session, criteriaQuery).getResultList();
         Method[] methods = object.getClass().getDeclaredMethods();
         JSONArray jSONArray = new JSONArray();
         for (T instance : list) {
@@ -66,18 +66,4 @@ public class DatabaseServiceImpl implements DatabaseService {
     public <T> void delete(T object) {
         databaseDao.delete(object);
     }
-
-    @Override
-    public <T> String fetchGoogleChartData(Session session, CriteriaQuery<T> criteriaQuery) {
-        List<T> list = databaseDao.fetch(session, criteriaQuery).getResultList();
-
-        JSONArray jSONArray = new JSONArray();
-        JSONArray jSONArrayTitle = new JSONArray();
-        jSONArrayTitle.put("Task");
-        jSONArrayTitle.put("Hours per Day");
-        jSONArray.put(jSONArrayTitle);
-
-        return jSONArray.toString();
-    }
-
 }

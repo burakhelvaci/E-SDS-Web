@@ -1,30 +1,18 @@
 package com.wissen.esds.dao.impl;
 
 import com.wissen.esds.HibernateUtility;
-import javax.annotation.PostConstruct;
-import javax.sql.DataSource;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
-import com.wissen.esds.dao.DatabaseDao;
 import javax.persistence.criteria.CriteriaQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
+import com.wissen.esds.dao.DatabaseDao;
 
 @Repository
-public class DatabaseDaoImpl extends JdbcDaoSupport implements DatabaseDao {
-
-    @Autowired
-    DataSource dataSource;
-
-    @PostConstruct
-    private void initialize() {
-        setDataSource(dataSource);
-    }
+public class DatabaseDaoImpl implements DatabaseDao {
 
     @Override
-    public <T> Query<T> fetch(Session session, CriteriaQuery<T> criteriaQuery) {
+    public <T> Query<T> select(Session session, CriteriaQuery<T> criteriaQuery) {
         Query<T> query = session.createQuery(criteriaQuery);
         return query;
     }
