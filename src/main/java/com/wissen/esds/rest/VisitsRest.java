@@ -31,6 +31,13 @@ public class VisitsRest {
 
     @RequestMapping(value = "/api/visit/logvisit", method = RequestMethod.POST)
     public void logVisits(Visit visit) {
-        databaseService.update(visit);
+        Session session = HibernateUtility.getSessionFactory().openSession();
+        CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+        CriteriaQuery criteriaQuery = criteriaBuilder.createQuery(Visit.class);
+        Root root = criteriaQuery.from(Visit.class);
+        criteriaQuery.select(root).where(criteriaBuilder.equal(root.get("id"), visit.getId()));
+        Visit visitTemp = (Visit) databaseService.fetchAsObject(session, criteriaQuery).get(0);
+        visitTemp.setCheckLocation("Evet");
+        databaseService.update(visitTemp);
     }
 }

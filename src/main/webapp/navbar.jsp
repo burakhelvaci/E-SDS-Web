@@ -10,7 +10,7 @@
         <div class="collapse navbar-collapse" id="collapsibleNavbar">
             <ul class="navbar-nav ml-auto">
 
-            <li class="nav-item"><a style="margin-right: 15px;" class="nav-link" href="<s:url value="/messenger"></s:url>">Mesajlar</a></li>
+            <li class="nav-item"><a style="margin-right: 15px;" class="nav-link" href="<s:url value="/message"></s:url>">Mesajlar</a></li>
             <li class="nav-item"><a style="margin-right: 15px;" class="nav-link" href="<s:url value="/personnel"></s:url>">Personeller</a></li>
             <li class="nav-item"><a style="margin-right: 15px;" class="nav-link" href="<s:url value="/customer"></s:url>">Müşteriler</a></li>
             <li class="nav-item"><a style="margin-right: 15px;" class="nav-link" href="<s:url value="/product"></s:url>">Ürünler</a></li>  

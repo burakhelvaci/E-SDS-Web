@@ -49,6 +49,7 @@
                             <div class="col-md-6" style="border-right: 1px solid #e9ecef;">
                                 <label for="name">İsim Soyisim:</label>
                                 <input type="text" class="form-control" id="name" name="name" required/>
+                                <input type="hidden" name="token" value=""/>
 
                                 <label for="userName" style="margin-top: 15px;">Kullanıcı Adı:</label>
                                 <input type="text" class="form-control" id="userName" name="userName" required/>

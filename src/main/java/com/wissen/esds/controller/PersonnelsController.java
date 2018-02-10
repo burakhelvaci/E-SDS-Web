@@ -39,6 +39,13 @@ public class PersonnelsController {
 
     @RequestMapping(value = "/personnel/updatepersonnel", method = RequestMethod.POST)
     public String updatePersonnel(Personnel personnel) {
+        Session session = HibernateUtility.getSessionFactory().openSession();
+        CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+        CriteriaQuery criteriaQuery = criteriaBuilder.createQuery(Personnel.class);
+        Root root = criteriaQuery.from(Personnel.class);
+        criteriaQuery.select(root).where(criteriaBuilder.equal(root.get("id"), personnel.getId()));
+        Personnel personnelTemp = (Personnel) databaseService.fetchAsObject(session, criteriaQuery).get(0);
+        personnel.setToken(personnelTemp.getToken());
         databaseService.update(personnel);
         return "redirect:/personnel";
     }

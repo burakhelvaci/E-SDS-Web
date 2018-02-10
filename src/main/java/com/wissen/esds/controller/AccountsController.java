@@ -33,10 +33,10 @@ public class AccountsController {
         Root root = criteriaQuery.from(Admin.class);
         criteriaQuery.select(root).where(criteriaBuilder.and(criteriaBuilder.equal(root.get("userName"), admin.getUserName()), criteriaBuilder.equal(root.get("password"), admin.getPassword())));
         if (databaseService.fetchAsObject(session, criteriaQuery).size() > 0) {
-            httpSession.setAttribute("admin", admin.getUserName());
+            httpSession.setAttribute("admin", databaseService.fetchAsObject(session, criteriaQuery).get(0));
             return "redirect:/";
         } else {
-            return "redirect:/login";
+            return "redirect:/account";
         }
     }
 
@@ -48,8 +48,9 @@ public class AccountsController {
 
     @RequestMapping(value = "/account/changepassword", method = RequestMethod.POST)
     public String changePassword(HttpSession session, Admin admin) {
-        admin.setUserName(session.getAttribute("admin").toString());
-        databaseService.update(admin);
+        Admin adminTemp = (Admin) session.getAttribute("admin");
+        adminTemp.setPassword(admin.getPassword());
+        databaseService.update(adminTemp);
         return "redirect:/account";
     }
 }

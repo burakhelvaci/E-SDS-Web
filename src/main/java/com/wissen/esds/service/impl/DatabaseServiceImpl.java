@@ -10,6 +10,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import com.wissen.esds.dao.DatabaseDao;
 import com.wissen.esds.service.DatabaseService;
+import java.util.Locale;
 
 @Service
 public class DatabaseServiceImpl implements DatabaseService {
@@ -40,9 +41,9 @@ public class DatabaseServiceImpl implements DatabaseService {
             for (Method method : methods) {
                 if (method.getName().startsWith("get") && !method.invoke(object).getClass().getName().contains("org")) {
                     if (method.invoke(object).getClass().getName().contains("com")) {
-                        jSONObject.put(method.getName().substring(3, 4).toLowerCase() + method.getName().substring(4), fetchAsJsonHelper(method.invoke(object)));
+                        jSONObject.put(method.getName().substring(3, 4).toLowerCase(new Locale("en","EN")) + method.getName().substring(4), fetchAsJsonHelper(method.invoke(object)));
                     } else {
-                        jSONObject.put(method.getName().substring(3, 4).toLowerCase() + method.getName().substring(4), method.invoke(object).toString());
+                        jSONObject.put(method.getName().substring(3, 4).toLowerCase(new Locale("en","EN")) + method.getName().substring(4), method.invoke(object).toString());
                     }
                 }
             }

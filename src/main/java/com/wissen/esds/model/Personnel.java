@@ -32,6 +32,9 @@ public class Personnel implements Serializable {
     @Column(name = "password")
     private String password;
 
+    @Column(name = "token")
+    private String token;
+
     public int getId() {
         return id;
     }
@@ -79,4 +82,13 @@ public class Personnel implements Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
 }

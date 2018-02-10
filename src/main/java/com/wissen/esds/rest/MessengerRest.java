@@ -2,7 +2,7 @@ package com.wissen.esds.rest;
 
 import com.wissen.esds.HibernateUtility;
 import com.wissen.esds.model.Category;
-import com.wissen.esds.model.Topic;
+import com.wissen.esds.model.Message;
 import com.wissen.esds.model.Personnel;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -15,12 +15,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import com.wissen.esds.service.DatabaseService;
+import com.wissen.esds.service.impl.FirebaseCloudMessageSenderService;
 
 @RestController
 public class MessengerRest {
 
     @Autowired
     DatabaseService databaseService;
+    
+    FirebaseCloudMessageSenderService firebaseCloudMessageSenderService;
 
     @RequestMapping(value = "/api/messenger/getusers", method = RequestMethod.POST)
     public String getUsers() {
@@ -32,9 +35,9 @@ public class MessengerRest {
         return databaseService.fetchAsJson(session, criteriaQuery, new Category());
     }
 
-    @RequestMapping(value = "/api/messenger/sendtopic", method = RequestMethod.POST)
-    public String sendTopic(Topic topic) {
-
-        return "";
+    @RequestMapping(value = "/api/messenger/sendmessage", method = RequestMethod.POST)
+    public void sendTopic(Message message) {
+        firebaseCloudMessageSenderService = new FirebaseCloudMessageSenderService();
+        firebaseCloudMessageSenderService.send(message.getReceiver(), message.getMessage());
     }
 }

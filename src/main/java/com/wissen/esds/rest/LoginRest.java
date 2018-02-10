@@ -19,12 +19,12 @@ public class LoginRest {
     DatabaseService databaseService;
 
     @RequestMapping(value = "/api/login/dologin", method = RequestMethod.POST)
-    public boolean doLoginWithMobile(Personnel personnel) {
+    public String doLoginWithMobile(Personnel personnel) {
         Session session = HibernateUtility.getSessionFactory().openSession();
         CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
         CriteriaQuery criteriaQuery = criteriaBuilder.createQuery(Personnel.class);
         Root root = criteriaQuery.from(Personnel.class);
         criteriaQuery.select(root).where(criteriaBuilder.and(criteriaBuilder.equal(root.get("userName"), personnel.getUserName()), criteriaBuilder.equal(root.get("password"), personnel.getPassword())));
-        return databaseService.fetchAsObject(session, criteriaQuery).size() > 0;
+        return databaseService.fetchAsJson(session, criteriaQuery, new Personnel());
     }
 }

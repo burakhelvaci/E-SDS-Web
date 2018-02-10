@@ -22,16 +22,16 @@
 <div class="container">
     <br/><br/>
     <div class="col-md-6 offset-md-3">
-        <form class="form-group" action="<s:url value="/messenger/sendmessage"></s:url>" method="post">
+        <form class="form-group" action="<s:url value="/message/sendmessage"></s:url>" method="post">
                 <div class="card">
                     <div class="card-header"><h4>Mesaj Gönder</h4></div>
                     <div class="card-body">
-                        <label for="topic">Alıcılar:</label>
-                        <select class="form-control" name="topic">
-                            <option value="esds">Herkes</option>
-                            <c:if test="${not empty personnelListForVisit}">  
-                                <c:forEach var="item" items="${personnelListForVisit}">
-                                    <option value="${item.getUserName()}">${item.getName()}</option>
+                        <label for="receiver">Alıcı:</label>
+                        <select class="form-control" name="receiver">
+                            <option value="/topics/esds">Herkes</option>
+                            <c:if test="${not empty personnelList}">  
+                                <c:forEach var="item" items="${personnelList}">
+                                    <option value="${item.getToken()}">${item.getName()}</option>
                                 </c:forEach>
                             </c:if>
                         </select>

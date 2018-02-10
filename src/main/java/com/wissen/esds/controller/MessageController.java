@@ -2,7 +2,7 @@ package com.wissen.esds.controller;
 
 import com.wissen.esds.HibernateUtility;
 import com.wissen.esds.model.Personnel;
-import com.wissen.esds.model.Topic;
+import com.wissen.esds.model.Message;
 import com.wissen.esds.service.SenderService;
 import com.wissen.esds.service.impl.FirebaseCloudMessageSenderService;
 import org.springframework.stereotype.Controller;
@@ -18,14 +18,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 @Controller
 @RequestMapping(value = "/", method = RequestMethod.GET)
-public class MessengerController {
+public class MessageController {
 
     @Autowired
     DatabaseService databaseService;
 
     SenderService senderService;
 
-    @RequestMapping(value = "/messenger", method = RequestMethod.POST)
+    @RequestMapping(value = "/message", method = RequestMethod.POST)
     public String messenger(Model model) {
         Session session = HibernateUtility.getSessionFactory().openSession();
         CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
@@ -33,13 +33,13 @@ public class MessengerController {
         Root root = criteriaQuery.from(Personnel.class);
         criteriaQuery.select(root);
         model.addAttribute("personnelList", databaseService.fetchAsObject(session, criteriaQuery));
-        return "messenger";
+        return "message";
     }
 
-    @RequestMapping(value = "/messenger/sendmessage", method = RequestMethod.POST)
-    public String sendMessage(Topic topic) {
+    @RequestMapping(value = "/message/sendmessage", method = RequestMethod.POST)
+    public String sendMessage(Message message) {
         senderService = new FirebaseCloudMessageSenderService();
-        senderService.send(topic.getTopic(), topic.getMessage());
-        return "redirect:/messenger";
+        senderService.send(message.getReceiver(), message.getMessage());
+        return "redirect:/message";
     }
 }
